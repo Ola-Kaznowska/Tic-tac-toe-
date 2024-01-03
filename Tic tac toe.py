@@ -67,10 +67,15 @@ def win_check(board, mark):
 
 def player_choice(board):
     choice = input("Please select an empty space between 1 and 9 : ")
-    while not space_check(board, int(choice)):
-        choice = input("This space isn't free. Please choose between 1 and 9 : ")
+    if choice.isspace() or not choice.isdigit() or not range(1,9):
+        choice = ""
+        while choice.isspace() or not choice.isdigit() or not range(1,9):
+            choice = input("Please select an empty space between 1 and 9 : ")
+    else:
+        while not space_check(board, int(choice)):
+            choice = input("This space isn't free. Please choose between 1 and 9 : ")
+        return choice
     return choice
-
 def replay():
     playAgain = input("Do you want to play again (y/n) ? ")
     if playAgain.lower() == 'y':
